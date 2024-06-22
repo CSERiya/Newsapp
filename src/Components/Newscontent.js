@@ -28,7 +28,7 @@ const Newscontent = (props) => {
 
         try {
             while (totalFetchedArticles < maxArticles) {
-                const url = `https://gnews.io/api/v4/top-headlines?category=${props.category}&lang=en&country=${props.country}&apikey=${props.apikey}&page=${currentPage}&pageSize=${maxArticles - totalFetchedArticles}`;
+                const url = `https://gnews.io/api/v4/top-headlines?category=${props.category}&lang=en&country=${props.country}&apikey=d472ee3c685170cdb198749a850963e1&page=${currentPage}&pageSize=${maxArticles - totalFetchedArticles}`;
 
                 let data = await fetch(url);
                 props.setProgress(30);
