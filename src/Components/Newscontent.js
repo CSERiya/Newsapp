@@ -105,7 +105,7 @@ const Newscontent = (props) => {
                 `}
             </style>
 
-            <h1 className="text-center">Newsapp - Trending {capitalizeFirstLetter(props.category)} Headlines</h1>
+            <h1 className="text-center" style={{marginTop:'120px'}}>Newsapp - Trending {capitalizeFirstLetter(props.category)} Headlines</h1>
             {loading && <Spinner />}
             <div className="container">
                 <div className="row">

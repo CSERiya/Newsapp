@@ -28,3 +28,4 @@ const Newsarticle =(props)=>{
     }
 
 export default Newsarticle
+
