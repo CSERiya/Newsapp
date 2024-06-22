@@ -15,7 +15,7 @@ const Newscontent = (props) => {
     };
 
     const fetchAllArticles = async () => {
-        if (!props.apiKey) {
+        if (!props.apikey) {
             console.error("API key is missing or invalid.");
             return;
         }
@@ -24,10 +24,12 @@ const Newscontent = (props) => {
         let allArticles = [];
         let currentPage = 1;
         let totalFetchedArticles = 0;
+        const maxArticles = 10;
 
         try {
-            while (true) {
-                const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${currentPage}&pageSize=100`;
+            while (totalFetchedArticles < maxArticles) {
+                const url = `https://gnews.io/api/v4/top-headlines?category=${props.category}&lang=en&country=${props.country}&apikey=${props.apikey}&page=${currentPage}&pageSize=${maxArticles - totalFetchedArticles}`;
+
                 let data = await fetch(url);
                 props.setProgress(30);
                 let parsedData = await data.json();
@@ -37,10 +39,11 @@ const Newscontent = (props) => {
                 if (totalFetchedArticles >= parsedData.totalResults || parsedData.articles.length === 0) {
                     break;
                 }
+
                 currentPage++;
             }
 
-            setArticles(allArticles);
+            setArticles(allArticles.slice(0, maxArticles));
             setTotalResults(allArticles.length);
             setLoading(false);
             props.setProgress(100);
@@ -112,7 +115,7 @@ const Newscontent = (props) => {
                                 <Newsarticle
                                     title={highlightText(element.title ? element.title : '', props.searchQuery)}
                                     description={highlightText(element.description ? element.description : '', props.searchQuery)}
-                                    imageUrl={element.urlToImage}
+                                    imageUrl={element.image}
                                     newsUrl={element.url}
                                     author={element.author}
                                     date={element.publishedAt}
@@ -155,4 +158,3 @@ Newscontent.propTypes = {
 };
 
 export default Newscontent;
-
